@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 210" width="100%" height="210">
+  
+    <defs>
+      <!-- Cyberpunk Grid -->
+      <pattern id="cyber-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.04" />
+      </pattern>
+
+      <!-- Finer Grid -->
+      <pattern id="cyber-grid-dense" width="12" height="12" patternUnits="userSpaceOnUse">
+        <path d="M 12 0 L 0 0 0 12" fill="none" stroke="#00f0ff" stroke-width="0.75" stroke-opacity="0.025" />
+      </pattern>
+
+      <!-- Diagonal Scanlines -->
+      <pattern id="cyber-scanlines" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.03" />
+      </pattern>
+
+      <!-- Glow Filters -->
+      <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="3" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+
+      <filter id="glow-cyan-subtle" x="-10%" y="-10%" width="120%" height="120%">
+        <feGaussianBlur stdDeviation="1.5" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+
+      <filter id="glow-magenta" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="3" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+
+      <!-- Background Gradients -->
+      <linearGradient id="bg-grad-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0a101d" />
+        <stop offset="50%" stop-color="#070b13" />
+        <stop offset="100%" stop-color="#05080f" />
+      </linearGradient>
+
+      <linearGradient id="panel-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#0e1728" />
+        <stop offset="100%" stop-color="#080e1a" />
+      </linearGradient>
+
+      <linearGradient id="cyan-glow-line" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.1" />
+        <stop offset="20%" stop-color="#00f0ff" stop-opacity="0.9" />
+        <stop offset="80%" stop-color="#00f0ff" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.1" />
+      </linearGradient>
+
+      <linearGradient id="accent-cyan-magenta" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#00f0ff" />
+        <stop offset="100%" stop-color="#ff007f" />
+      </linearGradient>
+    </defs>
+    
+  
+    <style>
+      .mono { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace; }
+      .cursor-blink { animation: blink 1.1s infinite; }
+      @keyframes blink {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+      }
+      .cyber-hover { transition: all 0.3s ease; }
+      .cyber-hover:hover { stroke: #00f0ff; stroke-width: 1.5; filter: url(#glow-cyan); }
+    </style>
+    
+
+  <!-- Background Base -->
+  <path d="M 1 1 L 883 1 L 899 17 L 899 209 L 1 209 Z" fill="#070b12" stroke="#00f0ff" stroke-width="1.5" />
+  
+  <!-- Subtle Background Grid -->
+  <rect x="2" y="2" width="896" height="206" fill="url(#cyber-grid)" />
+  <rect x="2" y="2" width="896" height="206" fill="url(#cyber-scanlines)" opacity="0.6" />
+
+  <!-- Terminal Top Chrome -->
+  <path d="M 1 1 L 883 1 L 899 17 L 899 35 L 1 35 Z" fill="#0e172a" stroke="#172b45" stroke-width="1" />
+  
+  <!-- Terminal Controls -->
+  <circle cx="20" cy="17" r="4.5" fill="#ff4d4d" opacity="0.9" />
+  <circle cx="34" cy="17" r="4.5" fill="#ffb830" opacity="0.9" />
+  <circle cx="48" cy="17" r="4.5" fill="#00f0ff" opacity="0.9" />
+
+  <!-- Terminal Title -->
+  <text x="68" y="21" fill="#00f0ff" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="700" letter-spacing="1">ROOT@MANTT-DATA:~ (zsh)</text>
+  
+  <!-- Right Status -->
+  <text x="876" y="21" fill="#00ff9f" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="700" text-anchor="end" letter-spacing="1.5">[ SYSTEM: ONLINE ]</text>
+
+  <!-- Cyberpunk Top Accent Bar -->
+  <line x1="1" y1="34" x2="899" y2="34" stroke="#172b45" stroke-width="1" />
+  <line x1="20" y1="34" x2="160" y2="34" stroke="#00f0ff" stroke-width="2" filter="url(#glow-cyan-subtle)" />
+
+  <!-- Boot HUD Telemetry Strip -->
+  <g transform="translate(24, 52)">
+    <text x="0" y="10" fill="#ff007f" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="700">SYS_BOOT:</text>
+    <text x="75" y="10" fill="#c4dbeb" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="600">SEQUENCE INITIALIZED</text>
+    <text x="240" y="10" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11">//</text>
+    <text x="260" y="10" fill="#009bb3" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="600">KERNEL: CYBER_CORE_64</text>
+    <text x="440" y="10" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11">//</text>
+    <text x="460" y="10" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11">SEC_LEVEL:</text>
+    <text x="545" y="10" fill="#00ff9f" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="700">ROOT_ACCESS</text>
+    <text x="660" y="10" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11">//</text>
+    <text x="680" y="10" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="11">CYBER_DECK v4.2.0</text>
+  </g>
+
+  <!-- Main Hero Graphic / Typography -->
+  <g transform="translate(24, 114)">
+    <!-- Decorative Tech Brackets -->
+    <path d="M 0 -24 L -10 -24 L -10 28 L 0 28" fill="none" stroke="#00f0ff" stroke-width="2" />
+    <path d="M 852 -24 L 862 -24 L 862 28 L 852 28" fill="none" stroke="#00f0ff" stroke-width="2" />
+
+    <!-- Name Shadow / Glow layer -->
+    <text x="12" y="12" fill="#ff007f" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="36" font-weight="900" letter-spacing="4" opacity="0.4" transform="translate(2, 2)">TEMAZZ</text>
+    <!-- Main Neon Name -->
+    <text x="12" y="12" fill="#e2f1f8" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="36" font-weight="900" letter-spacing="4">TEMAZZ</text>
+    <text x="152" y="12" fill="#00f0ff" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="36" font-weight="900" letter-spacing="3" filter="url(#glow-cyan)">// MAN TT</text>
+
+    <!-- Role / Spec Line -->
+    <text x="14" y="38" fill="#00f0ff" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="13" font-weight="700" letter-spacing="2">&gt; SOFTWARE ENGINEER</text>
+    <text x="240" y="38" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="600">|</text>
+    <text x="255" y="38" fill="#c4dbeb" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="500" letter-spacing="1">BACKEND SYSTEMS &amp; DISTRIBUTED ARCHITECTURE</text>
+  </g>
+
+  <!-- Bottom Telemetry Badges -->
+  <g transform="translate(24, 178)">
+    <!-- Badge 1: Location -->
+    <rect x="0" y="0" width="160" height="22" rx="3" fill="#0d192c" stroke="#172b45" stroke-width="1" />
+    <circle cx="12" cy="11" r="3" fill="#00ff9f" />
+    <text x="22" y="15" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="10" font-weight="600">LOC: REMOTE // VN</text>
+
+    <!-- Badge 2: Latency -->
+    <rect x="170" y="0" width="130" height="22" rx="3" fill="#0d192c" stroke="#172b45" stroke-width="1" />
+    <text x="180" y="15" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="10" font-weight="600">PING: <tspan fill="#00f0ff">14ms</tspan></text>
+
+    <!-- Badge 3: Uptime -->
+    <rect x="310" y="0" width="140" height="22" rx="3" fill="#0d192c" stroke="#172b45" stroke-width="1" />
+    <text x="320" y="15" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="10" font-weight="600">UPTIME: <tspan fill="#00ff9f">99.98%</tspan></text>
+
+    <!-- Badge 4: Deck Status -->
+    <rect x="460" y="0" width="160" height="22" rx="3" fill="#0d192c" stroke="#172b45" stroke-width="1" />
+    <text x="470" y="15" fill="#607b96" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="10" font-weight="600">DECK: <tspan fill="#ff007f">UNRESTRICTED</tspan></text>
+
+    <!-- Right Hex Code -->
+    <text x="852" y="15" fill="#3d546b" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace" font-size="10" text-anchor="end" letter-spacing="1">ID: 0x7E4A9F // PROTOCOL: READY</text>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+{
+  "github_username": "ManTT-Data",
+  "display_name": "Temazz",
+  "role": "Software Engineer",
+  "tagline": "Building, learning and experimenting with software.",
+  "location": "Cyberspace // Remote",
+  "system_version": "CYBER_DECK v4.2.0",
+  "interests": [
+    "Software Engineering",
+    "Backend Systems",
+    "Cloud",
+    "Automation",
+    "Open Source"
+  ],
+  "current_mission": [
+    "Build useful software",
+    "Improve engineering fundamentals",
+    "Explore scalable systems",
+    "Learn by building"
+  ],
+  "links": {
+    "facebook": "https://www.facebook.com/teaman.2606",
+    "linkedin": "https://www.linkedin.com/in/temazzdev",
+    "blog": "https://dev.to/temaz_2606"
+  }
+}
