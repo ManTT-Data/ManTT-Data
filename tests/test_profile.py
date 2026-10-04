@@ -87,3 +87,44 @@ def test_assets_presence_and_cleanup():
     banned = ["identity.svg", "current-mission.svg", "header.svg", "projects", "writing"]
     for b in banned:
         assert not (assets_dir / b).exists(), f"Banned asset {b} should not exist"
+
+
+def test_data_files_and_schema():
+    calendar_file = BASE_DIR / "data" / "calendar.json"
+    stats_file = BASE_DIR / "data" / "stats.json"
+
+    assert calendar_file.exists(), "data/calendar.json must exist"
+    assert stats_file.exists(), "data/stats.json must exist"
+
+    calendar = json.loads(calendar_file.read_text(encoding="utf-8"))
+    stats = json.loads(stats_file.read_text(encoding="utf-8"))
+
+    # Calendar validations
+    assert isinstance(calendar, list)
+    assert len(calendar) >= 365
+    assert len(calendar[0]) == 2
+    assert isinstance(calendar[0][0], str)
+    assert isinstance(calendar[0][1], int)
+
+    # Stats validations
+    assert "stars" in stats
+    assert "contributions_year" in stats
+    assert "contributions_all" in stats
+    assert "streak_current" in stats
+    assert "streak_longest" in stats
+    assert "followers" in stats
+    assert "languages" in stats
+    assert isinstance(stats["languages"], dict)
+
+
+def test_github_workflow_configuration():
+    workflow_file = BASE_DIR / ".github" / "workflows" / "update-profile.yml"
+    assert workflow_file.exists(), "Workflow file update-profile.yml must exist"
+    content = workflow_file.read_text(encoding="utf-8")
+
+    assert "fetch_data.py" in content
+    assert "generate_profile.py" in content
+    assert "test_profile.py" in content
+    assert "GITHUB_TOKEN" in content
+    assert "contents: write" in content
+

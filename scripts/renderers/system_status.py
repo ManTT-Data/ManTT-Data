@@ -1,4 +1,6 @@
-"""Stats renderer - Cloned from georgekobaidze console design."""
+import datetime
+import json
+from pathlib import Path
 
 from .svg_utils import (
     AMBER,
@@ -11,6 +13,31 @@ from .svg_utils import (
     heading,
     slice_svg,
 )
+
+
+def load_stats_data() -> dict:
+    """Load stats from data/stats.json with safe fallback."""
+    stats_path = Path(__file__).resolve().parent.parent.parent / "data" / "stats.json"
+    if stats_path.exists():
+        try:
+            return json.loads(stats_path.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {}
+
+
+def format_member_since(created_at_str: str) -> str:
+    """Format GitHub account creation date into 'MMM YYYY (Xy)'."""
+    if not created_at_str:
+        return "Oct 2023 (3y)"
+    try:
+        dt = datetime.datetime.fromisoformat(created_at_str.replace("Z", "+00:00"))
+        now = datetime.datetime.now(datetime.timezone.utc)
+        diff_years = max(0, now.year - dt.year)
+        month_abbr = dt.strftime("%b")
+        return f"{month_abbr} {dt.year} ({diff_years}y)"
+    except Exception:
+        return "Oct 2023 (3y)"
 
 
 def tile(x: float, y: float, w: float, h: float, label: str, value: str, sub: str, delay: float) -> str:
@@ -26,8 +53,23 @@ def tile(x: float, y: float, w: float, h: float, label: str, value: str, sub: st
 
 
 def render_system_status(config: dict) -> str:
-    """Render the stats.svg slice matching georgekobaidze design."""
-    username = config.get("github_username", "ManTT-Data")
+    """Render the stats.svg slice matching georgekobaidze design with dynamic data."""
+    stats = load_stats_data()
+    username = stats.get("username") or config.get("github_username", "ManTT-Data")
+    now_year = datetime.date.today().year
+
+    stars = stats.get("stars", 48)
+    contribs_yr = stats.get("contributions_year", 1322)
+    contribs_all = stats.get("contributions_all", 1649)
+    prs = stats.get("prs", 52)
+    prs_merged = stats.get("prs_merged", 48)
+    streak_cur = stats.get("streak_current", 34)
+    streak_long = stats.get("streak_longest", 42)
+    followers = stats.get("followers", 12)
+    forks = stats.get("forks", 8)
+    created_at = stats.get("created_at", "2023-10-15T00:00:00Z")
+    member_since = format_member_since(created_at)
+
     parts = [
         heading(44, "stats", "// 02"),
         f'<g class="ln" style="animation-delay:.15s"><text x="{X}" y="96" class="dim"><tspan class="gr">$</tspan> gh stats --user {esc(username)}</text></g>',
@@ -36,10 +78,10 @@ def render_system_status(config: dict) -> str:
     # Row 1 — 4 big tiles
     tw, gap, ty, th = 182, 16, 118, 92
     t1 = [
-        ("TOTAL STARS", "48", "across all repos"),
-        ("CONTRIBUTIONS 2026", "1,322", "1,649 all time"),
-        ("PULL REQUESTS", "52", "48 merged"),
-        ("CURRENT STREAK", "34d", "longest: 42 days"),
+        ("TOTAL STARS", f"{stars:,}", "across all repos"),
+        (f"CONTRIBUTIONS {now_year}", f"{contribs_yr:,}", f"{contribs_all:,} all time"),
+        ("PULL REQUESTS", f"{prs:,}", f"{prs_merged:,} merged"),
+        ("CURRENT STREAK", f"{streak_cur}d", f"longest: {streak_long} days"),
     ]
     for i, (lab, val, sub) in enumerate(t1):
         parts.append(tile(X + i * (tw + gap), ty, tw, th, lab, val, sub, 0.25 + i * 0.08))
@@ -48,9 +90,9 @@ def render_system_status(config: dict) -> str:
     ry, rh = ty + th + 16, 110
     lw = 280
     kv = [
-        ("followers", "12"),
-        ("forks", "8"),
-        ("member since", "Oct 2023 (3y)"),
+        ("followers", f"{followers:,}"),
+        ("forks", f"{forks:,}"),
+        ("member since", member_since),
         ("deck status", "ONLINE ★"),
     ]
     rows = "\n".join(
@@ -66,21 +108,34 @@ def render_system_status(config: dict) -> str:
     # Top languages bar
     lx = X + lw + gap
     lwid = (FR - 36) - lx
-    items = [
-        ("Python", 0.382),
-        ("TypeScript", 0.245),
-        ("C#", 0.181),
-        ("Go", 0.120),
-        ("SQL", 0.072),
-    ]
-    cols = [CYAN, MAGENTA, GREEN, AMBER, "#a855f7"]
+    palette = [CYAN, MAGENTA, GREEN, AMBER, "#a855f7", "#ec4899", "#3b82f6"]
+
+    raw_langs = stats.get("languages", {})
+    if raw_langs and isinstance(raw_langs, dict):
+        top_pairs = list(raw_langs.items())[:5]
+        total_bytes = sum(v for _, v in top_pairs)
+        if total_bytes > 0:
+            items = [(k, v / total_bytes) for k, v in top_pairs]
+        else:
+            items = [("Python", 0.382), ("TypeScript", 0.245), ("C#", 0.181), ("Go", 0.120), ("SQL", 0.072)]
+    else:
+        items = [
+            ("Python", 0.382),
+            ("TypeScript", 0.245),
+            ("C#", 0.181),
+            ("Go", 0.120),
+            ("SQL", 0.072),
+        ]
+
+    cols = palette[: len(items)]
     bx, by, bw = lx + 16, ry + 36, lwid - 32
     segs, cx = [], bx
     for (k, p), c in zip(items, cols):
         w = bw * p
-        segs.append(f'<rect x="{cx:.1f}" y="{by}" width="{max(w-2,1):.1f}" height="8" fill="{c}"/>')
-        segs.append(f'<rect x="{cx:.1f}" y="{by}" width="{max(w-2,1):.1f}" height="8" fill="{c}" filter="url(#g)" opacity=".6"/>')
-        cx += w
+        if w > 0:
+            segs.append(f'<rect x="{cx:.1f}" y="{by}" width="{max(w-2,1):.1f}" height="8" fill="{c}"/>')
+            segs.append(f'<rect x="{cx:.1f}" y="{by}" width="{max(w-2,1):.1f}" height="8" fill="{c}" filter="url(#g)" opacity=".6"/>')
+            cx += w
 
     legend = []
     for i, ((k, p), c) in enumerate(zip(items, cols)):
@@ -106,3 +161,4 @@ def render_system_status(config: dict) -> str:
 
     h = 360
     return slice_svg(h, "\n".join(parts), title="GitHub Stats", desc=f"Stats for {username}")
+

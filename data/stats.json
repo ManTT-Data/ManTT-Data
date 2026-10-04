@@ -1,0 +1,25 @@
+{
+  "username": "ManTT-Data",
+  "created_at": "2023-10-15T00:00:00Z",
+  "followers": 12,
+  "prs": 52,
+  "prs_merged": 48,
+  "stars": 48,
+  "forks": 8,
+  "repo_stars": {},
+  "languages": {
+    "Python": 154200,
+    "TypeScript": 98400,
+    "C#": 72500,
+    "Go": 48100,
+    "SQL": 28900
+  },
+  "year": 2026,
+  "commits_year": 940,
+  "commits_all": 1420,
+  "contributions_year": 1322,
+  "contributions_all": 1649,
+  "streak_current": 34,
+  "streak_longest": 42,
+  "updated": "2026-10-04"
+}
