@@ -1,135 +1,108 @@
-"""System Status / GitHub Stats section SVG renderer."""
+"""Stats renderer - Cloned from georgekobaidze console design."""
 
 from .svg_utils import (
-    COLOR_AMBER_NEON,
-    COLOR_BG_DEEP,
-    COLOR_BG_PANEL,
-    COLOR_BORDER_CYAN,
-    COLOR_BORDER_MUTED,
-    COLOR_CYAN_DIM,
-    COLOR_CYAN_NEON,
-    COLOR_GREEN_NEON,
-    COLOR_MAGENTA_NEON,
-    COLOR_TEXT_BRIGHT,
-    COLOR_TEXT_DIM,
-    COLOR_TEXT_MUTED,
-    COLOR_TEXT_PRIMARY,
-    FONT_MONO,
-    chamfered_rect_path,
-    command_prompt_line,
-    common_defs,
-    common_styles,
+    AMBER,
+    CYAN,
+    FR,
+    GREEN,
+    MAGENTA,
+    X,
     esc,
-    terminal_top_bar,
+    heading,
+    slice_svg,
 )
 
 
+def tile(x: float, y: float, w: float, h: float, label: str, value: str, sub: str, delay: float) -> str:
+    """Render a stat tile with top-left corner bracket and glowing value."""
+    glow = f'<text x="{x+16:.1f}" y="{y+50:.1f}" font-weight="700" fill="{CYAN}" filter="url(#g)" opacity=".55" style="font-size:30px">{esc(value)}</text>'
+    return f"""<g class="ln" style="animation-delay:{delay:.2f}s">
+<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="{CYAN}" fill-opacity=".035" stroke="{CYAN}" stroke-opacity=".35"/>
+<path d="M{x:.1f} {y+12:.1f}V{y:.1f}H{x+12:.1f}" fill="none" stroke="{CYAN}" stroke-width="2"/>
+<text x="{x+16:.1f}" y="{y+22:.1f}" letter-spacing="1.5" class="dim" style="font-size:10.5px">{esc(label)}</text>
+{glow}<text x="{x+16:.1f}" y="{y+50:.1f}" font-weight="700" fill="{CYAN}" style="font-size:30px">{esc(value)}</text>
+<text x="{x+16:.1f}" y="{y+h-12:.1f}" fill="#6e7681" style="font-size:12px">{esc(sub)}</text>
+</g>"""
+
+
 def render_system_status(config: dict) -> str:
-    """Render the SYSTEM STATUS / GITHUB STATS section SVG."""
-    w, h = 900, 215
-    github_user = config.get("github_username", "ManTT-Data")
-
-    outer_path = chamfered_rect_path(1, 1, w - 2, h - 2, chamfer=14, corner="top-right")
-
-    card_w = 202
-    card_h = 118
-    gap = 14
-    start_x = 22
-    card_y = 74
-
-    cards_data = [
-        {
-            "tag": "COMMITS // VOL",
-            "val": "1,420+",
-            "sub": "CODE COMMITS",
-            "stat": "VELOCITY: HIGH",
-            "stat_color": COLOR_CYAN_NEON,
-            "bar_pct": 0.88,
-            "accent": COLOR_CYAN_NEON,
-        },
-        {
-            "tag": "PULL_REQS // MERGE",
-            "val": "52+",
-            "sub": "MERGED WORKFLOWS",
-            "stat": "CI/CD: 100% GREEN",
-            "stat_color": COLOR_GREEN_NEON,
-            "bar_pct": 0.95,
-            "accent": COLOR_GREEN_NEON,
-        },
-        {
-            "tag": "STREAK // UPTIME",
-            "val": "42 DAYS",
-            "sub": "CONCURRENT CYCLE",
-            "stat": "STABILITY: OPTIMAL",
-            "stat_color": COLOR_AMBER_NEON,
-            "bar_pct": 0.82,
-            "accent": COLOR_AMBER_NEON,
-        },
-        {
-            "tag": "SECURITY // CODE",
-            "val": "S-TIER",
-            "sub": "CODE INTEGRITY",
-            "stat": "0 DEFECTS / SEC_OK",
-            "stat_color": COLOR_MAGENTA_NEON,
-            "bar_pct": 0.98,
-            "accent": COLOR_MAGENTA_NEON,
-        },
+    """Render the stats.svg slice matching georgekobaidze design."""
+    username = config.get("github_username", "ManTT-Data")
+    parts = [
+        heading(44, "stats", "// 02"),
+        f'<g class="ln" style="animation-delay:.15s"><text x="{X}" y="96" class="dim"><tspan class="gr">$</tspan> gh stats --user {esc(username)}</text></g>',
     ]
 
-    cards_svg = []
-    for i, card in enumerate(cards_data):
-        cx = start_x + i * (card_w + gap)
-        cpath = chamfered_rect_path(cx, card_y, card_w, card_h, chamfer=8, corner="top-right")
-        bar_full_w = card_w - 28
-        bar_fill_w = bar_full_w * card["bar_pct"]
+    # Row 1 — 4 big tiles
+    tw, gap, ty, th = 182, 16, 118, 92
+    t1 = [
+        ("TOTAL STARS", "48", "across all repos"),
+        ("CONTRIBUTIONS 2026", "1,322", "1,649 all time"),
+        ("PULL REQUESTS", "52", "48 merged"),
+        ("CURRENT STREAK", "34d", "longest: 42 days"),
+    ]
+    for i, (lab, val, sub) in enumerate(t1):
+        parts.append(tile(X + i * (tw + gap), ty, tw, th, lab, val, sub, 0.25 + i * 0.08))
 
-        cards_svg.append(f"""
-        <!-- Card {i + 1} -->
-        <g>
-          <path d="{cpath}" fill="#0a1220" stroke="{COLOR_BORDER_MUTED}" stroke-width="1" />
-          <line x1="{cx}" y1="{card_y + 2}" x2="{cx + 36}" y2="{card_y + 2}" stroke="{card['accent']}" stroke-width="2" />
-          
-          <!-- Tag Header -->
-          <text x="{cx + 14}" y="{card_y + 20}" fill="{COLOR_TEXT_MUTED}" font-family="{FONT_MONO}" font-size="10" font-weight="700" letter-spacing="0.5">{esc(card['tag'])}</text>
-          
-          <!-- Primary Metric Value -->
-          <text x="{cx + 14}" y="{card_y + 52}" fill="{COLOR_TEXT_BRIGHT}" font-family="{FONT_MONO}" font-size="22" font-weight="900" letter-spacing="1">{esc(card['val'])}</text>
-          
-          <!-- Subtitle -->
-          <text x="{cx + 14}" y="{card_y + 70}" fill="{COLOR_CYAN_DIM}" font-family="{FONT_MONO}" font-size="10" font-weight="600" letter-spacing="0.5">{esc(card['sub'])}</text>
+    # Row 2 — Telemetry list + Top Languages
+    ry, rh = ty + th + 16, 110
+    lw = 280
+    kv = [
+        ("followers", "12"),
+        ("forks", "8"),
+        ("member since", "Oct 2023 (3y)"),
+        ("deck status", "ONLINE ★"),
+    ]
+    rows = "\n".join(
+        f'<text x="{X+16}" y="{ry+26+i*22}" xml:space="preserve"><tspan class="cy">{esc(k)}</tspan><tspan class="dim">{"." * (16 - len(k))}</tspan> <tspan class="fg">{esc(v)}</tspan></text>'
+        for i, (k, v) in enumerate(kv)
+    )
+    parts.append(f"""<g class="ln" style="animation-delay:.6s">
+<rect x="{X}" y="{ry}" width="{lw}" height="{rh}" fill="{CYAN}" fill-opacity=".035" stroke="{CYAN}" stroke-opacity=".35"/>
+<path d="M{X} {ry+12}V{ry}H{X+12}" fill="none" stroke="{CYAN}" stroke-width="2"/>
+{rows}
+</g>""")
 
-          <!-- Gauge Progress Bar -->
-          <rect x="{cx + 14}" y="{card_y + 82}" width="{bar_full_w}" height="4" rx="2" fill="#142338" />
-          <rect x="{cx + 14}" y="{card_y + 82}" width="{bar_fill_w}" height="4" rx="2" fill="{card['accent']}" />
+    # Top languages bar
+    lx = X + lw + gap
+    lwid = (FR - 36) - lx
+    items = [
+        ("Python", 0.382),
+        ("TypeScript", 0.245),
+        ("C#", 0.181),
+        ("Go", 0.120),
+        ("SQL", 0.072),
+    ]
+    cols = [CYAN, MAGENTA, GREEN, AMBER, "#a855f7"]
+    bx, by, bw = lx + 16, ry + 36, lwid - 32
+    segs, cx = [], bx
+    for (k, p), c in zip(items, cols):
+        w = bw * p
+        segs.append(f'<rect x="{cx:.1f}" y="{by}" width="{max(w-2,1):.1f}" height="8" fill="{c}"/>')
+        segs.append(f'<rect x="{cx:.1f}" y="{by}" width="{max(w-2,1):.1f}" height="8" fill="{c}" filter="url(#g)" opacity=".6"/>')
+        cx += w
 
-          <!-- Bottom Telemetry Status -->
-          <circle cx="{cx + 17}" cy="{card_y + 102}" r="3" fill="{card['stat_color']}" />
-          <text x="{cx + 26}" y="{card_y + 105}" fill="{card['stat_color']}" font-family="{FONT_MONO}" font-size="9.5" font-weight="700" letter-spacing="0.5">{esc(card['stat'])}</text>
-        </g>
-        """)
+    legend = []
+    for i, ((k, p), c) in enumerate(zip(items, cols)):
+        col, row = i % 3, i // 3
+        lxx = bx + col * (bw / 3)
+        lyy = by + 28 + row * 22
+        legend.append(
+            f'<rect x="{lxx:.1f}" y="{lyy-8:.1f}" width="8" height="8" fill="{c}"/>'
+            f'<text x="{lxx+14:.1f}" y="{lyy}" class="fg" style="font-size:12px">{esc(k)}</text>'
+            f'<text x="{lxx + bw/3 - 16:.1f}" y="{lyy}" text-anchor="end" class="dim" style="font-size:11px">{p*100:.1f}%</text>'
+        )
 
-    cards_markup = "\n".join(cards_svg)
+    parts.append(f"""<g class="ln" style="animation-delay:.7s">
+<rect x="{lx}" y="{ry}" width="{lwid}" height="{rh}" fill="{CYAN}" fill-opacity=".035" stroke="{CYAN}" stroke-opacity=".35"/>
+<path d="M{lx} {ry+12}V{ry}H{lx+12}" fill="none" stroke="{CYAN}" stroke-width="2"/>
+<text x="{lx+16}" y="{ry+20}" letter-spacing="1.5" class="dim" style="font-size:10.5px">TOP LANGUAGES</text>
+<rect x="{bx}" y="{by}" width="{bw}" height="8" fill="#11161d"/>
+{"".join(segs)}
+{"".join(legend)}
+</g>""")
 
-    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="100%" height="{h}">
-  {common_defs()}
-  {common_styles()}
+    parts.append(f'<text x="{FR-36}" y="{ry + rh + 18}" text-anchor="end" fill="#484f58" style="font-size:11px">// telemetry synchronized</text>')
 
-  <!-- Main Terminal Frame -->
-  <path d="{outer_path}" fill="{COLOR_BG_DEEP}" stroke="{COLOR_BORDER_CYAN}" stroke-width="1.2" />
-  <rect x="2" y="2" width="{w - 4}" height="{h - 4}" fill="url(#cyber-grid)" />
-
-  <!-- Terminal Chrome Top Bar -->
-  {terminal_top_bar(1, 1, w - 2, path="~/metrics", sec_tag="// SEC_02: TELEMETRY")}
-
-  <!-- Terminal Command Line -->
-  <g transform="translate(24, 56)">
-    {command_prompt_line(0, 0, f"sys_stat --github-telemetry @{github_user}")}
-  </g>
-
-  <!-- Metric Cards Grid -->
-  {cards_markup}
-
-  <!-- Bottom Terminal Status Bar -->
-  <line x1="22" y1="{h - 10}" x2="{w - 22}" y2="{h - 10}" stroke="{COLOR_BORDER_MUTED}" stroke-width="0.5" />
-</svg>"""
-    return svg
+    h = 360
+    return slice_svg(h, "\n".join(parts), title="GitHub Stats", desc=f"Stats for {username}")

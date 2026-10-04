@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360" role="img" aria-labelledby="t d">
+<title id="t">Tech stack</title>
+<desc id="d">Tech stack. languages: C#, Java, TypeScript, JavaScript, Python. frameworks: .NET, Node.js, FastAPI. databases: PostgreSQL, MS SQL, MySQL, Redis, MongoDB. cloud: AWS, Azure. front-end: React, Next.js, Three.js, Tailwind CSS.</desc>
+<style>
+text{font-family:'JBM',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:15px}
+.dim{fill:#8b949e}.cy{fill:#00d9ff}.fg{fill:#c9d1d9}.gr{fill:#3fb950}.wh{fill:#f0fbff}
+@keyframes fadein{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.ln{animation:fadein .35s ease-out both}
+.cursor{animation:blink 1.05s step-end infinite}
+.dot{animation:pulse 2s ease-in-out infinite}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<defs>
+<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#00d9ff" stroke-opacity=".06"/></pattern>
+<filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="g" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>
+
+</defs>
+<path d="M16 -40V400M864 -40V400" fill="none" stroke="#00d9ff" stroke-width="3" opacity=".55" filter="url(#glow)"/>
+<rect x="16" y="0" width="848" height="360" fill="#03040a"/>
+<rect x="16" y="0" width="848" height="360" fill="url(#grid)"/>
+<text x="52" y="44" font-weight="700" fill="#00d9ff" filter="url(#g)" opacity=".8" style="font-size:20px">~/</text>
+<text x="52" y="44" font-weight="700" style="font-size:20px"><tspan class="cy">~/</tspan><tspan class="wh">stack</tspan></text>
+<text x="828" y="44" text-anchor="end" letter-spacing="2" fill="#6e7681" style="font-size:12px">// 04</text>
+<line x1="52" y1="58" x2="828" y2="58" stroke="#00d9ff" stroke-opacity=".4"/>
+<line x1="52" y1="58" x2="172" y2="58" stroke="#00d9ff" stroke-width="2"/>
+<line x1="52" y1="58" x2="172" y2="58" stroke="#00d9ff" stroke-width="3" filter="url(#g)"/>
+<g class="ln" style="animation-delay:.15s"><text x="52" y="96" class="dim"><tspan class="gr">$</tspan> scan --loadout --top-level</text></g>
+<g class="ln" style="animation-delay:0.25s">
+<text x="52" y="146" class="dim" style="font-size:13px">languages</text>
+<text x="156" y="146" class="cy" style="font-size:13px">›</text>
+<rect x="176.0" y="126" width="41.6" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M176.0 134V126H184.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="189.0" y="146" font-weight="700" class="cy" style="font-size:13px">C#</text>
+<rect x="227.6" y="126" width="57.2" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M227.6 134V126H235.6" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="240.6" y="146" font-weight="700" class="cy" style="font-size:13px">Java</text>
+<rect x="294.8" y="126" width="104.0" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M294.8 134V126H302.8" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="307.8" y="146" font-weight="700" class="cy" style="font-size:13px">TypeScript</text>
+<rect x="408.8" y="126" width="104.0" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M408.8 134V126H416.8" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="421.8" y="146" font-weight="700" class="cy" style="font-size:13px">JavaScript</text>
+<rect x="522.8" y="126" width="72.8" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M522.8 134V126H530.8" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="535.8" y="146" font-weight="700" class="cy" style="font-size:13px">Python</text>
+</g>
+<g class="ln" style="animation-delay:0.35s">
+<text x="52" y="190" class="dim" style="font-size:13px">frameworks</text>
+<text x="156" y="190" class="cy" style="font-size:13px">›</text>
+<rect x="176.0" y="170" width="57.2" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M176.0 178V170H184.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="189.0" y="190" font-weight="700" class="cy" style="font-size:13px">.NET</text>
+<rect x="243.2" y="170" width="80.6" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M243.2 178V170H251.2" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="256.2" y="190" font-weight="700" class="cy" style="font-size:13px">Node.js</text>
+<rect x="333.8" y="170" width="80.6" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M333.8 178V170H341.8" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="346.8" y="190" font-weight="700" class="cy" style="font-size:13px">FastAPI</text>
+</g>
+<g class="ln" style="animation-delay:0.45s">
+<text x="52" y="234" class="dim" style="font-size:13px">databases</text>
+<text x="156" y="234" class="cy" style="font-size:13px">›</text>
+<rect x="176.0" y="214" width="104.0" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M176.0 222V214H184.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="189.0" y="234" font-weight="700" class="cy" style="font-size:13px">PostgreSQL</text>
+<rect x="290.0" y="214" width="72.8" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M290.0 222V214H298.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="303.0" y="234" font-weight="700" class="cy" style="font-size:13px">MS SQL</text>
+<rect x="372.8" y="214" width="65.0" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M372.8 222V214H380.8" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="385.8" y="234" font-weight="700" class="cy" style="font-size:13px">MySQL</text>
+<rect x="447.8" y="214" width="65.0" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M447.8 222V214H455.8" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="460.8" y="234" font-weight="700" class="cy" style="font-size:13px">Redis</text>
+<rect x="522.8" y="214" width="80.6" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M522.8 222V214H530.8" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="535.8" y="234" font-weight="700" class="cy" style="font-size:13px">MongoDB</text>
+</g>
+<g class="ln" style="animation-delay:0.55s">
+<text x="52" y="278" class="dim" style="font-size:13px">cloud</text>
+<text x="156" y="278" class="cy" style="font-size:13px">›</text>
+<rect x="176.0" y="258" width="49.4" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M176.0 266V258H184.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="189.0" y="278" font-weight="700" class="cy" style="font-size:13px">AWS</text>
+<rect x="235.4" y="258" width="65.0" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M235.4 266V258H243.4" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="248.4" y="278" font-weight="700" class="cy" style="font-size:13px">Azure</text>
+</g>
+<g class="ln" style="animation-delay:0.65s">
+<text x="52" y="322" class="dim" style="font-size:13px">front-end</text>
+<text x="156" y="322" class="cy" style="font-size:13px">›</text>
+<rect x="176.0" y="302" width="65.0" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M176.0 310V302H184.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="189.0" y="322" font-weight="700" class="cy" style="font-size:13px">React</text>
+<rect x="251.0" y="302" width="80.6" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M251.0 310V302H259.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="264.0" y="322" font-weight="700" class="cy" style="font-size:13px">Next.js</text>
+<rect x="341.6" y="302" width="88.4" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M341.6 310V302H349.6" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="354.6" y="322" font-weight="700" class="cy" style="font-size:13px">Three.js</text>
+<rect x="440.0" y="302" width="119.6" height="30" fill="#00d9ff" fill-opacity=".06" stroke="#00d9ff" stroke-opacity=".55"/>
+<path d="M440.0 310V302H448.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
+<text x="453.0" y="322" font-weight="700" class="cy" style="font-size:13px">Tailwind CSS</text>
+</g>
+<path d="M16 0V360M864 0V360" fill="none" stroke="#00d9ff" stroke-width="1.2"/>
+<g fill="none" stroke="#00d9ff" stroke-width="2"></g>
+</svg>
