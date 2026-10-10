@@ -40,8 +40,8 @@ text{font-family:'JBM',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font
 <rect x="250.0" y="118.0" width="182.0" height="92.0" fill="#00d9ff" fill-opacity=".035" stroke="#00d9ff" stroke-opacity=".35"/>
 <path d="M250.0 130.0V118.0H262.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
 <text x="266.0" y="140.0" letter-spacing="1.5" class="dim" style="font-size:10.5px">CONTRIBUTIONS 2026</text>
-<text x="266.0" y="168.0" font-weight="700" fill="#00d9ff" filter="url(#g)" opacity=".55" style="font-size:30px">91</text><text x="266.0" y="168.0" font-weight="700" fill="#00d9ff" style="font-size:30px">91</text>
-<text x="266.0" y="198.0" fill="#6e7681" style="font-size:12px">200 all time</text>
+<text x="266.0" y="168.0" font-weight="700" fill="#00d9ff" filter="url(#g)" opacity=".55" style="font-size:30px">96</text><text x="266.0" y="168.0" font-weight="700" fill="#00d9ff" style="font-size:30px">96</text>
+<text x="266.0" y="198.0" fill="#6e7681" style="font-size:12px">205 all time</text>
 </g>
 <g class="ln" style="animation-delay:0.41s">
 <rect x="448.0" y="118.0" width="182.0" height="92.0" fill="#00d9ff" fill-opacity=".035" stroke="#00d9ff" stroke-opacity=".35"/>
@@ -54,7 +54,7 @@ text{font-family:'JBM',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font
 <rect x="646.0" y="118.0" width="182.0" height="92.0" fill="#00d9ff" fill-opacity=".035" stroke="#00d9ff" stroke-opacity=".35"/>
 <path d="M646.0 130.0V118.0H658.0" fill="none" stroke="#00d9ff" stroke-width="2"/>
 <text x="662.0" y="140.0" letter-spacing="1.5" class="dim" style="font-size:10.5px">CURRENT STREAK</text>
-<text x="662.0" y="168.0" font-weight="700" fill="#00d9ff" filter="url(#g)" opacity=".55" style="font-size:30px">0d</text><text x="662.0" y="168.0" font-weight="700" fill="#00d9ff" style="font-size:30px">0d</text>
+<text x="662.0" y="168.0" font-weight="700" fill="#00d9ff" filter="url(#g)" opacity=".55" style="font-size:30px">2d</text><text x="662.0" y="168.0" font-weight="700" fill="#00d9ff" style="font-size:30px">2d</text>
 <text x="662.0" y="198.0" fill="#6e7681" style="font-size:12px">longest: 6 days</text>
 </g>
 <g class="ln" style="animation-delay:.6s">
